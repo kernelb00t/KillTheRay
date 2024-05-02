@@ -138,7 +138,7 @@ match argv[1]:
 		LIBS_PATH = WEB_LIBS_PATH
 		RUN = WEB_RUN
 		# Do the thing
-		compile_no_obj_all(cflags="-O3 --closure 1")
+		compile_no_obj_all(cflags="-O3")
 		run()
 		yeet(0) # yipeeee
 	case "win":

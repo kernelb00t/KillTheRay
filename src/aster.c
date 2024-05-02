@@ -6,7 +6,7 @@
 ListAster asters;
 
 bool aster_update(Aster* self) {
-  self->pos = Vector2Add(self->pos, Vector2Scale(self->vel, dt));
+  self->pos = Vector2Add(self->pos, Vector2Scale(self->vel, dt * (1.f + 1.f/self->size)));
   DrawCircleV(self->pos, self->size * 10.f, WHITE);
   for (int i = 0; i < list_bullet_size(&bullets); i++) {
     if (CheckCollisionPointCircle(bullets.data[i].pos, self->pos, self->size * 10.f)) {
