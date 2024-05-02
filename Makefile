@@ -1,5 +1,3 @@
-
-
 run:
 	g++ "main.cpp" -o a -O0 -Wall -Wno-missing-braces -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 	chmod +x a
