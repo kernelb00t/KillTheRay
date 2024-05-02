@@ -124,7 +124,21 @@ bool Aster::update() {
         const Vector2 temp = asters[i].vel;
         asters[i].vel = Vector2Scale(Vector2Normalize(vel), sum_len * ratio);
         vel = Vector2Scale(Vector2Normalize(temp), sum_len * (1.f - ratio));
-        
+        const Vector2 middle = Vector2Scale(Vector2Add(asters[i].pos, pos), 0.5f);
+        asters[i].pos = Vector2Add(
+          middle,
+          Vector2Scale(
+            Vector2Normalize(Vector2Subtract(asters[i].pos, middle)),
+            size*10.f
+          )
+        );
+        pos = Vector2Add(
+          middle,
+          Vector2Scale(
+            Vector2Normalize(Vector2Subtract(pos, middle)),
+            size*10.f
+          )
+        );
       }
     }
 
