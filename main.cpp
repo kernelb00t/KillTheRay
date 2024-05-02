@@ -117,6 +117,8 @@ bool Aster::update() {
       }
     }
     for (int i = 0; i < (int)asters.size(); i++) {
+      if ((asters.arr + i) == this)
+        continue;
       if (CheckCollisionCircles(asters[i].pos, asters[i].size * 10.f, pos, size * 10.f)) {
         const Vector2 sum_vel = Vector2Add(asters[i].vel, vel);
         const float sum_len = Vector2Length(sum_vel);
@@ -129,7 +131,7 @@ bool Aster::update() {
           middle,
           Vector2Scale(
             Vector2Normalize(Vector2Subtract(asters[i].pos, middle)),
-            size*10.f
+            asters[i].size*10.f
           )
         );
         pos = Vector2Add(
