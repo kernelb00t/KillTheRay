@@ -9,4 +9,6 @@ final:
 	./b
 
 web:
-	emcc main.cpp -o static/templates/home.html -L . -I . -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB
+	emcc main.cpp -o templates/home.html -L . -I . -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB
+	mv templates/home.js static/home.js
+	mv templates/home.wasm static/home.wasm
