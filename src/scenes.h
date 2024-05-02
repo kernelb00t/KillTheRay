@@ -3,7 +3,7 @@
 
 typedef enum Scene { GAME, GAMEOVER, SCENE_COUNT } Scene;
 extern Scene current_scene;
-void update_current_scene();
-void reset();
+extern void update_current_scene();
+extern void reset();
 
 #endif /* H_SCENES */

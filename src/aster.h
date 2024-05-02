@@ -9,7 +9,7 @@ typedef struct Aster {
   float size;
 } Aster;
 
-bool aster_update(Aster* self);
+extern bool aster_update(Aster* self);
 
 typedef struct ListAster {
   Aster data[MAX_ASTEROID];
@@ -17,13 +17,13 @@ typedef struct ListAster {
   int top;
 } ListAster;
 
-void list_aster_append(ListAster* self, Aster element);
-void list_aster_erase(ListAster* self, int index);
-int list_aster_size(ListAster* self);
-void list_aster_clear(ListAster* self);
+extern void list_aster_append(ListAster* self, Aster element);
+extern void list_aster_erase(ListAster* self, int index);
+extern int list_aster_size(ListAster* self);
+extern void list_aster_clear(ListAster* self);
 
 extern ListAster asters;
 
-void spawnAster(Vector2 pos, Vector2 vel, float size);
+extern void spawnAster(Vector2 pos, Vector2 vel, float size);
 
 #endif /* H_ASTER */

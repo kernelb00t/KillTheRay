@@ -6,8 +6,6 @@
 #include "utils.h"
 #include "raymath.h"
 
-typedef void(*scene_func_t)();
-
 void reset() {
   player.vel = (Vector2){0.f, 0.f};
   player.pos = (Vector2){XMAX / 2.f, YMAX / 2.f};
@@ -22,8 +20,21 @@ void reset() {
 const float TIMING = 5.f;
 float timing = TIMING;
 
-void scene_game() {
-	if (timing <= 0.f) {
+static inline void scene_gameover() {
+  const char *fmt1 = TextFormat("Score: %i", score);
+  const char *fmt2 = "YOU SUCK AT ASTEROID";
+  float w1 = MeasureText(fmt1, 40);
+  float w2 = MeasureText(fmt2, 70);
+  DrawText(fmt1, XMAX / 2 - w1 / 2, 30, 40, WHITE);
+  DrawText(fmt2, XMAX / 2 - w2 / 2, 120, 70, WHITE);
+  if (IsKeyPressed(KEY_SPACE)) {
+    reset();
+    current_scene = GAME;
+  }
+}
+
+static inline void scene_game() {
+  if (timing <= 0.f) {
     spawnAster(rand_side(), randv2(ASTER_SPEED), GetRandomValue(2, 5));
     timing = TIMING;
   } else {
@@ -52,25 +63,16 @@ void scene_game() {
             WHITE);
 }
 
-void scene_gameover() {
-  const char *fmt1 = TextFormat("Score: %i", score);
-  const char *fmt2 = "YOU SUCK AT ASTEROID";
-  float w1 = MeasureText(fmt1, 40);
-  float w2 = MeasureText(fmt2, 70);
-  DrawText(fmt1, XMAX / 2 - w1 / 2, 30, 40, WHITE);
-  DrawText(fmt2, XMAX / 2 - w2 / 2, 120, 70, WHITE);
-  if (IsKeyPressed(KEY_SPACE)) {
-    reset();
-    current_scene = GAME;
-  }
-}
-
-scene_func_t scenes[SCENE_COUNT] = {
-	scene_game,
-	scene_gameover
-};
-
 Scene current_scene;
 void update_current_scene() {
-	scenes[current_scene]();
+	switch (current_scene) {
+    case GAME:
+      scene_game();
+      break;
+    case GAMEOVER:
+      scene_gameover();
+      break;
+    default:
+    break;
+  }
 }

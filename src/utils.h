@@ -2,7 +2,7 @@
 #define H_UTILS
 #include "raylib.h"
 
-Vector2 rand_side();
-Vector2 randv2(float scale);
+extern Vector2 rand_side();
+extern Vector2 randv2(float scale);
 
 #endif /* H_UTILS */

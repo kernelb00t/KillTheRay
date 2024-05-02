@@ -6,7 +6,7 @@
 #include "raymath.h"
 #include <math.h>
 
-void player_update(Player* self) {
+inline void player_update(Player* self) {
   for (int i = 0; i < list_aster_size(&asters); i++) {
     if (CheckCollisionCircles(asters.data[i].pos, asters.data[i].size * 10.f, self->pos,
                               SIZE * 5.f)) {

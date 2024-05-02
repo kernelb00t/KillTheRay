@@ -11,6 +11,6 @@ typedef struct Player {
 
 extern Player player;
 
-void player_update(Player* self);
+extern void player_update(Player* self);
 
 #endif /* H_PLAYER */
