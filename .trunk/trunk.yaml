@@ -17,6 +17,17 @@ runtimes:
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   enabled:
+    - pre-commit-hooks@4.6.0
+    - autopep8@2.1.0
+    - bandit@1.7.8
+    - black@24.4.2
+    - clang-format@16.0.3
+    - clang-tidy@16.0.3
+    - flake8@7.0.0
+    - gitleaks@8.8.7
+    - pre-commit-hooks@4.6.0
+    - pylint@3.1.0
+    - pyright@1.1.361
     - include-what-you-use@0.20
     - trunk-toolbox@0.3.1
     - checkov@3.2.77

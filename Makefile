@@ -11,5 +11,5 @@ final:
 	./b
 
 web:
-	emcc main.cpp -o home.html -L lib -I include -lraylib
+	emcc main.cpp -o templates/home.html -L lib -I include -lraylib -s USE_GLFW=3 -DPLATFORM_WEB
 
