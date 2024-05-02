@@ -106,54 +106,48 @@ struct Aster {
 List<Aster, 500> asters;
 
 bool Aster::update() {
-    pos = Vector2Add(pos, Vector2Scale(vel, dt));
-    DrawCircleV(pos, size * 10.f, WHITE);
-    for (int i = 0; i < (int)bullets.size(); i++) {
-      if (CheckCollisionPointCircle(bullets[i].pos, pos, size * 10.f)) {
-        score += 1;
-        bullets.erase(i);
-        i--;
-        return true;
-      }
+  pos = Vector2Add(pos, Vector2Scale(vel, dt));
+  DrawCircleV(pos, size * 10.f, WHITE);
+  for (int i = 0; i < (int)bullets.size(); i++) {
+    if (CheckCollisionPointCircle(bullets[i].pos, pos, size * 10.f)) {
+      score += 1;
+      bullets.erase(i);
+      i--;
+      return true;
     }
-    for (int i = 0; i < (int)asters.size(); i++) {
-      if ((asters.arr + i) == this)
-        continue;
-      if (CheckCollisionCircles(asters[i].pos, asters[i].size * 10.f, pos, size * 10.f)) {
-        const Vector2 sum_vel = Vector2Add(asters[i].vel, vel);
-        const float sum_len = Vector2Length(sum_vel);
-        const float ratio = float(asters[i].size)/size;
-        const Vector2 temp = asters[i].vel;
-        asters[i].vel = Vector2Scale(Vector2Normalize(vel), sum_len * ratio);
-        vel = Vector2Scale(Vector2Normalize(temp), sum_len * (1.f - ratio));
-        const Vector2 middle = Vector2Scale(Vector2Add(asters[i].pos, pos), 0.5f);
-        asters[i].pos = Vector2Add(
-          middle,
-          Vector2Scale(
-            Vector2Normalize(Vector2Subtract(asters[i].pos, middle)),
-            asters[i].size*10.f
-          )
-        );
-        pos = Vector2Add(
-          middle,
-          Vector2Scale(
-            Vector2Normalize(Vector2Subtract(pos, middle)),
-            size*10.f
-          )
-        );
-      }
-    }
-
-    if (pos.x < 0.f)
-      pos.x = XMAX;
-    if (pos.x > XMAX)
-      pos.x = 0.f;
-    if (pos.y < 0.f)
-      pos.y = YMAX;
-    if (pos.y > YMAX)
-      pos.y = 0.f;
-    return false;
   }
+  for (int i = 0; i < (int)asters.size(); i++) {
+    if ((asters.arr + i) == this)
+      continue;
+    if (CheckCollisionCircles(asters[i].pos, asters[i].size * 10.f, pos,
+                              size * 10.f)) {
+      const Vector2 sum_vel = Vector2Add(asters[i].vel, vel);
+      const float sum_len = Vector2Length(sum_vel);
+      const float ratio = float(asters[i].size) / size;
+      const Vector2 temp = asters[i].vel;
+      asters[i].vel = Vector2Scale(Vector2Normalize(vel), sum_len * ratio);
+      vel = Vector2Scale(Vector2Normalize(temp), sum_len * (1.f - ratio));
+      const Vector2 middle = Vector2Scale(Vector2Add(asters[i].pos, pos), 0.5f);
+      asters[i].pos = Vector2Add(
+          middle,
+          Vector2Scale(Vector2Normalize(Vector2Subtract(asters[i].pos, middle)),
+                       asters[i].size * 10.f));
+      pos = Vector2Add(
+          middle, Vector2Scale(Vector2Normalize(Vector2Subtract(pos, middle)),
+                               size * 10.f));
+    }
+  }
+
+  if (pos.x < 0.f)
+    pos.x = XMAX;
+  if (pos.x > XMAX)
+    pos.x = 0.f;
+  if (pos.y < 0.f)
+    pos.y = YMAX;
+  if (pos.y > YMAX)
+    pos.y = 0.f;
+  return false;
+}
 
 void spawnBullet(Vector2 pos, Vector2 vel) {
   bullets.push_back(Bullet{pos, vel});

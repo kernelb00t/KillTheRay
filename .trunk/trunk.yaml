@@ -12,11 +12,13 @@ plugins:
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
   enabled:
+    - go@1.21.0
     - node@18.12.1
     - python@3.10.8
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   enabled:
+    - ruff@0.4.2
     - isort@5.13.2
     - autopep8@2.1.0
     - bandit@1.7.8
@@ -24,7 +26,7 @@ lint:
     - clang-format@16.0.3
     - clang-tidy@16.0.3
     - flake8@7.0.0
-    - gitleaks@8.8.7
+    - gitleaks@8.18.2
     - pylint@3.1.0
     - pyright@1.1.361
     - include-what-you-use@0.20
@@ -36,6 +38,8 @@ lint:
     - trufflehog@3.74.0
     - yamllint@1.35.1
 actions:
+  disabled:
+    - trunk-fmt-pre-commit
   enabled:
     - trunk-announce
     - trunk-check-pre-push

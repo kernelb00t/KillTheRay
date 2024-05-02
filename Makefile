@@ -24,5 +24,4 @@ compile:
 	mv public/templates/home.wasm public/static/home.wasm
 
 flask:
-	cd public
-	python main.py
+	(cd public && python main.py)
