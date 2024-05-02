@@ -18,7 +18,6 @@ runtimes:
 lint:
   enabled:
     - isort@5.13.2
-    - pre-commit-hooks@4.6.0
     - autopep8@2.1.0
     - bandit@1.7.8
     - black@24.4.2
@@ -26,7 +25,6 @@ lint:
     - clang-tidy@16.0.3
     - flake8@7.0.0
     - gitleaks@8.8.7
-    - pre-commit-hooks@4.6.0
     - pylint@3.1.0
     - pyright@1.1.361
     - include-what-you-use@0.20
@@ -41,5 +39,4 @@ actions:
   enabled:
     - trunk-announce
     - trunk-check-pre-push
-    - trunk-fmt-pre-commit
     - trunk-upgrade-available
