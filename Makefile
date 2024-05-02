@@ -1,5 +1,3 @@
-
-
 run:
 	g++ "main.cpp" -o a -O0 -Wall -Wno-missing-braces -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 	chmod +x a
@@ -11,5 +9,4 @@ final:
 	./b
 
 web:
-	emcc main.cpp -o templates/home.html -L . -I . -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB
-
+	emcc main.cpp -o static/templates/home.html -L . -I . -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB
