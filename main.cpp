@@ -236,7 +236,7 @@ void reset() {
 }
 
 int main() {
-  // SetTargetFPS(120);
+  SetTargetFPS(10);
   // SetConfigFlags(FLAG_FULLSCREEN_MODE);
   InitWindow(XMAX, YMAX, "Name of the window here.");
   XMAX = GetScreenWidth();
@@ -288,7 +288,7 @@ int main() {
     }
     case GAMEOVER: {
       const char *fmt1 = TextFormat("Score: %i", score);
-      const char *fmt2 = "YOU SUCK AT ASTEROID";
+      const char *fmt2 = "YOU ARE BAD AT ASTEROID";
       float w1 = MeasureText(fmt1, 40);
       float w2 = MeasureText(fmt2, 70);
       DrawText(fmt1, XMAX / 2 - w1 / 2, 30, 40, WHITE);
