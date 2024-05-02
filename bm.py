@@ -17,8 +17,8 @@ RUN = f"chmod +x {BIN}; ./{BIN}"
 WEB_CC = "emcc"
 WEB_LIBS_PATH = "-L libs"
 WEB_LFLAGS = f"{WEB_LIBS_PATH} -I {SRC_PATH} -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB"
-WEB_BIN = "public/templates/home.html"
-WEB_RUN = "cd public; python3 main.py; cd .."
+WEB_BIN = "public/home.html"
+WEB_RUN = "python main.py"
 
 WIN_CC = "gcc"
 WIN_LIBS_PATH = ""
@@ -76,6 +76,13 @@ def compile_all(check_ch_time = True, cflags = ""):
 		# Iter through all source .c files
 		if (not check_ch_time) or opt[path_] < last_ch(path_):
 			compile_to_obj(path_, cflags)
+def compile_no_obj_all(cflags=""):
+	""" cflags are additional flags to the setting CFLAGS """
+	j = " ".join(rls(SRC_PATH, lambda x: x[-2:] == ".c"))
+	if not j:
+		raise Exception("Wtf ???")
+	if code := shell(f"{CC} {j} -o {BIN} {cflags} {LFLAGS}"):
+		yeet(code)
 def compile_to_obj(p: str, cflags=""):
 	""" cflags are additional flags to the setting CFLAGS """
 	out_path = f"{OBJ_PATH}/{path.basename(p)}"[:-2] + '.o'
@@ -130,8 +137,7 @@ match argv[1]:
 		LIBS_PATH = WEB_LIBS_PATH
 		RUN = WEB_RUN
 		# Do the thing
-		compile_all(cflags="-O3")
-		link_all(cflags="-O3")
+		compile_no_obj_all()
 		run()
 		yeet(0) # yipeeee
 	case "win":
