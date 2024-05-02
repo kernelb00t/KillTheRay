@@ -1,8 +1,5 @@
 #!/bin/env python3
 # Better make
-from os import listdir, path, stat, system, makedirs
-from sys import argv
-from json import load, dump
 
 # Default should be linux (or else it's prefixed with WIN_ for windows for example)
 VERBOSE = True # 'verbose' simply prints the commands before running them
@@ -16,7 +13,7 @@ RUN = f"chmod +x {BIN}; ./{BIN}"
 
 WEB_CC = "emcc"
 WEB_LIBS_PATH = "-L libs"
-WEB_LFLAGS = f"{WEB_LIBS_PATH} -I {SRC_PATH} -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB"
+WEB_LFLAGS = f"{WEB_LIBS_PATH} -I {SRC_PATH} -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB -ffast-math -pipe -fno-plt -fexceptions -Wp,-D_FORTIFY_SOURCE=3 -Wformat -Werror=format-security -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer"
 WEB_BIN = "public/home.html"
 WEB_RUN = "python main.py"
 
@@ -29,6 +26,10 @@ WIN_RUN = f".\\{WIN_BIN}"
 
 TIMESTAMPS = "config/bm.json"
 OBJ_PATH = "temp"
+
+from os import listdir, path, stat, system, makedirs
+from sys import argv
+from json import load, dump
 
 def rls(path_, filter = lambda x: True):
 	for target in listdir(path_):
