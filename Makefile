@@ -11,5 +11,5 @@ final:
 	./b
 
 web:
-	emcc main.cpp -o templates/home.html -L lib -I include -lraylib -s USE_GLFW=3 -DPLATFORM_WEB
+	emcc main.cpp -o templates/home.html -L . -I . -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB
 

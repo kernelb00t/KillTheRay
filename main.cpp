@@ -34,14 +34,14 @@ template <class T, int count> struct List {
   }
 };
 
-float XMAX = 0.0f; // Initialisation des variables de la taille de l'écran
-float YMAX = 0.0f;
+float XMAX = 1200.0f; // Initialisation des variables de la taille de l'écran
+float YMAX = 700.0f;
 const float SIZE = 1.f;           // Taille du joueur
 const float ASTER_SPEED = 56.f;   // Vitesse d'un astéroide
 const float BULLET_SPEED = 360.f; // Vitess d'un bullet
 const float ANGLE_SPEED = 4.f;    // Vitesse angulaire du joueur
 const float MAX_SPEED = 240.f;    // Vitesse maximum du joueur
-const float COOLDOWN = 0.1f;      // Temps réel entre chaque Bullet tiré
+const float COOLDOWN = 0.5f;      // Temps réel entre chaque Bullet tiré
 Vector2 mpo;                      // Position de la souris
 Vector2 mdt;                      // Vittesse de celle-ci
 float dt;                         // Initialisation du delta time du jeu
@@ -85,7 +85,7 @@ struct Bullet {
 
   bool update() {
     pos = Vector2Add(pos, Vector2Scale(vel, dt));
-    DrawLineV(pos, Vector2Add(pos, Vector2Scale(vel, 0.01f)), WHITE);
+    DrawLineV(pos, Vector2Add(pos, Vector2Scale(vel, 0.05f)), WHITE);
     if (!CheckCollisionPointRec(pos, {0, 0, XMAX, YMAX})) {
       return true;
     }
@@ -100,7 +100,12 @@ struct Aster {
   Vector2 vel;
   float size;
 
-  bool update() {
+  bool update();
+};
+
+List<Aster, 500> asters;
+
+bool Aster::update() {
     pos = Vector2Add(pos, Vector2Scale(vel, dt));
     DrawCircleV(pos, size * 10.f, WHITE);
     for (int i = 0; i < (int)bullets.size(); i++) {
@@ -109,6 +114,17 @@ struct Aster {
         bullets.erase(i);
         i--;
         return true;
+      }
+    }
+    for (int i = 0; i < (int)asters.size(); i++) {
+      if (CheckCollisionCircles(asters[i].pos, asters[i].size * 10.f, pos, size * 10.f)) {
+        const Vector2 sum_vel = Vector2Add(asters[i].vel, vel);
+        const float sum_len = Vector2Length(sum_vel);
+        const float ratio = float(asters[i].size)/size;
+        const Vector2 temp = asters[i].vel;
+        asters[i].vel = Vector2Scale(Vector2Normalize(vel), sum_len * ratio);
+        vel = Vector2Scale(Vector2Normalize(temp), sum_len * (1.f - ratio));
+        
       }
     }
 
@@ -122,9 +138,6 @@ struct Aster {
       pos.y = 0.f;
     return false;
   }
-};
-
-List<Aster, 500> asters;
 
 void spawnBullet(Vector2 pos, Vector2 vel) {
   bullets.push_back(Bullet{pos, vel});
@@ -208,7 +221,7 @@ void reset() {
 
 int main() {
   SetTargetFPS(60);
-  SetConfigFlags(FLAG_FULLSCREEN_MODE);
+  // SetConfigFlags(FLAG_FULLSCREEN_MODE);
   InitWindow(XMAX, YMAX, "Name of the window here.");
   XMAX = GetScreenWidth();
   YMAX = GetScreenHeight();
@@ -264,7 +277,7 @@ int main() {
       float w2 = MeasureText(fmt2, 70);
       DrawText(fmt1, XMAX / 2 - w1 / 2, 30, 40, WHITE);
       DrawText(fmt2, XMAX / 2 - w2 / 2, 120, 70, WHITE);
-      if (IsKeyPressed(KEY_ESCAPE)) {
+      if (IsKeyPressed(KEY_SPACE)) {
         reset();
         current_scene = GAME;
       }
