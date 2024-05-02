@@ -236,7 +236,7 @@ void reset() {
 }
 
 int main() {
-  SetTargetFPS(60);
+  // SetTargetFPS(120);
   // SetConfigFlags(FLAG_FULLSCREEN_MODE);
   InitWindow(XMAX, YMAX, "Name of the window here.");
   XMAX = GetScreenWidth();
