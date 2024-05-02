@@ -1,5 +1,5 @@
-#include <raylib.h> // Importation de RayLib, la librairie graphique de ce projet
-#include <raymath.h>
+#include "raylib.h" // Importation de RayLib, la librairie graphique de ce projet
+#include "raymath.h"
 // #include  // Liste en C++ (NON CAR WASM)
 
 template <class T, int count>
@@ -151,6 +151,7 @@ struct Player {
 	Vector2 vel = {0.f, 0.f};
 	float angle = 0.f;
 	float cooldown = 0.f;
+
 	void update() {
 		for (int i = 0; i < (int)asters.size(); i++)
 		{

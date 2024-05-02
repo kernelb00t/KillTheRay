@@ -11,5 +11,5 @@ final:
 	./b
 
 web:
-	emcc main.cpp -o home.html
+	emcc main.cpp -o home.html -L lib -I include -lraylib
 
