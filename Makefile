@@ -10,3 +10,6 @@ final:
 	chmod +x b
 	./b
 
+web:
+	emcc main.cpp -o home.html
+

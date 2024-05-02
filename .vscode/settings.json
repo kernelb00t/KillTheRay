@@ -1,6 +1,6 @@
 {
-    "files.associations": {
-        "*.conf": "xml",
-        "vector": "cpp"
-    }
+  "files.associations": {
+    "*.conf": "xml",
+    "vector": "cpp"
+  }
 }

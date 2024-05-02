@@ -4,7 +4,7 @@
 
 template <class T, int count>
 struct List {
-	T[count] arr;
+	T arr[count];
 	int head = 0;
 	int top = 0;
 	// Ca risque de faire des trucs chelou
@@ -118,6 +118,8 @@ struct Aster {
 		{
 			if (CheckCollisionPointCircle(bullets[i].pos, pos, size * 10.f)) {
 				score += 1;
+				bullets.erase(i);
+				i--;
 				return true;
 			}
 		}
@@ -281,10 +283,10 @@ int main() {
 			case GAMEOVER: {
 				const char* fmt1 = TextFormat("Score: %i", score);
 				const char* fmt2 = "YOU SUCK AT ASTEROID";
-				float w1 = MeasureText(fmt1, 70);
-				float w2 = MeasureText(fmt2, 120);
-				DrawText(fmt1, XMAX/2 - w1/2, 30, 70, WHITE);
-				DrawText(fmt2, XMAX/2 - w2/2, 120, 120, WHITE);
+				float w1 = MeasureText(fmt1, 40);
+				float w2 = MeasureText(fmt2, 70);
+				DrawText(fmt1, XMAX/2 - w1/2, 30, 40, WHITE);
+				DrawText(fmt2, XMAX/2 - w2/2, 120, 70, WHITE);
 				if (IsKeyPressed(KEY_ESCAPE)) {
 					reset();
 					current_scene = GAME;
