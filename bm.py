@@ -11,6 +11,9 @@ CFLAGS = "-g -Wall -Wno-missing-braces"
 BIN = "killtheray"
 RUN = f"chmod +x {BIN}; ./{BIN}"
 
+# WARNING: Some of these flags have a different name when it comes to using something other than gcc. Some of these are very specific optimization flags.
+PRODUCTION_FLAGS = "-O3 -Wall -Wno-missing-braces --fast-math -march=tigerlake -mtune=tigerlake -pipe -fno-plt -fexceptions -Wp,-D_FORTIFY_SOURCE=3 -Wformat -Werror=format-security -fstack-clash-protection -fcf-protection -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer"
+
 WEB_CC = "emcc"
 WEB_LIBS_PATH = "-L libs"
 WEB_LFLAGS = f"{WEB_LIBS_PATH} -I {SRC_PATH} -lraylib -s ASYNCIFY -s USE_GLFW=3 -DPLATFORM_WEB -ffast-math -pipe -fno-plt -fexceptions -Wp,-D_FORTIFY_SOURCE=3 -Wformat -Werror=format-security -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer"
@@ -20,7 +23,7 @@ WEB_RUN = "python main.py"
 WIN_CC = "gcc"
 WIN_LIBS_PATH = ""
 WIN_CFLAGS = f"-I {SRC_PATH}"
-WIN_LFLAGS = "-lraylib -lgdi32 -lwinmm"
+WIN_LFLAGS = "-lraylib -lgdi32 -lwinmm "
 WIN_BIN = "killtheray.exe"
 WIN_RUN = f".\\{WIN_BIN}"
 
@@ -160,7 +163,7 @@ match argv[1]:
 		yeet(0)
 	case "production":
 		# TODO: Check for additional flags (eg. 'bm.py production platform')
-		compile_all(check_ch_time=False, cflags="-O3")
+		compile_all(check_ch_time=False, cflags=PRODUCTION_FLAGS)
 		link_all()
 		yeet(0)
 	case "dbg" | "gdb" | "debug" | "d":
